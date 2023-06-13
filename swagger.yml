@@ -1,0 +1,12 @@
+swagger: "2.0"
+info:
+  title: "Contoh API"
+  description: "Deskripsi API Anda"
+  version: "1.0"
+paths:
+  /endpoint:
+    get:
+      summary: "Contoh endpoint"
+      responses:
+        200:
+          description: "OK"
