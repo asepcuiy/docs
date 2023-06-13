@@ -6,6 +6,7 @@ from flask import request
 from flasgger import Swagger, LazyString, LazyJSONEncoder
 from flasgger import swag_from
 
+
 app = Flask(__name__)
 
 
@@ -31,7 +32,7 @@ swagger_config = {
     "specs_route": "/docs/"
 }
 swagger = Swagger(app, template=swagger_template,             
-                    config=swagger_config)
+                  config=swagger_config)
 
 
 @swag_from("docs/hello_world.yml", methods=['GET'])
@@ -46,6 +47,31 @@ def hello_world():
     response_data = jsonify(json_response)
     return response_data
 
+
+@swag_from("docs/text.yml", methods=['GET'])
+@app.route('/text', methods=['GET'])
+def text():
+    json_response = {
+        'status_code': 200,
+        'description': "Original Teks",
+        'data': "Halo, apa kabar semua?",
+    }
+
+    response_data = jsonify(json_response)
+    return response_data
+
+
+@swag_from("docs/text_clean.yml", methods=['GET'])
+@app.route('/text-clean', methods=['GET'])
+def text_clean():
+    json_response = {
+        'status_code': 200,
+        'description': "Teks yang sudah dibersihkan",
+        'data': re.sub(r'[^a-zA-Z0-9]', ' ', "Halo, apa kabar semua?"),
+    }
+
+    response_data = jsonify(json_response)
+    return response_data
 
 
 
